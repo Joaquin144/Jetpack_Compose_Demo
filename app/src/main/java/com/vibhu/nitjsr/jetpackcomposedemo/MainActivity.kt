@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -25,19 +26,22 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-
-            Column(
-                modifier = Modifier
-                    .background(Color.Blue)
-                    .width(250.dp)
-                    .height(500.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text("Sinaloa")
-                Text(text = "Golden Triangle")
+            Column(modifier = Modifier
+                .fillMaxHeight(0.75f)
+                .background(Color.Green)
+                .fillMaxWidth(.8f)
+                .border(5.dp,Color.Magenta)
+                .padding(25.dp)
+                .border(5.dp,Color.Black)
+                .padding(25.dp)
+                .border(5.dp,Color.Red)
+                .padding(25.dp)
+                .border(5.dp,Color.Yellow)
+                .padding(25.dp)){
+                    Text(text = "Hello",Modifier.padding(20.dp))
+                    Spacer(modifier = Modifier.height(60.dp))
+                    Text(text = "World")
             }
-
         }
     }
 
