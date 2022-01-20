@@ -5,6 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.DraggableState
+import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -37,10 +40,18 @@ class MainActivity : ComponentActivity() {
                 .border(5.dp,Color.Red)
                 .padding(25.dp)
                 .border(5.dp,Color.Yellow)
-                .padding(25.dp)){
-                    Text(text = "Hello",Modifier.padding(20.dp))
-                    Spacer(modifier = Modifier.height(60.dp))
-                    Text(text = "World")
+                .padding(25.dp))
+            {
+                Text(text = "Hello",Modifier
+                    .border(5.dp,Color.Black)
+                    .padding(5.dp)
+                    .offset(100.dp,200.dp)
+                    .border(5.dp,Color.White)
+                    .padding(10.dp))
+                Spacer(modifier = Modifier.height(60.dp))
+                Text(text = "World", modifier = Modifier.clickable {
+
+                })
             }
         }
     }
