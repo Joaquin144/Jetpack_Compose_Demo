@@ -32,7 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vibhu.nitjsr.jetpackcomposedemo.ui.theme.JetpackComposeDemoTheme
 /*
-                Notes :------
+              My  Notes :------
 1.> Alignment : The horizontal alignment of the layout's children
 2.> Arrangement : The vertical arrangement of the layout's children
 3.> Main axis(arrangement) and Cross Axis(alignment)
@@ -85,6 +85,17 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
+    @Preview(showBackground = true)
+    fun Greeting(){
+        Text(text = "Hello Ji Aunty Ji")
+    }
+    @Composable
+    @Preview(showBackground = true)
+    fun Greeting1(){
+        Text(text = "Hello Ji Uncle Ji")
+    }
+
+    @Composable
     fun ImageCard(
         painter: Painter,
         contentDescripton: String,
@@ -105,13 +116,14 @@ class MainActivity : ComponentActivity() {
             //todo : Make the Gradient
             Box(modifier= Modifier
                 .fillMaxSize()
-                .background(Brush.verticalGradient(
-                    colors = listOf(
-                        Color.Transparent,
-                        Color.Black
-                    ),
-                    startY = 300f
-                )
+                .background(
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Transparent,
+                            Color.Black
+                        ),
+                        startY = 300f
+                    )
                 )
             )
             Box(
