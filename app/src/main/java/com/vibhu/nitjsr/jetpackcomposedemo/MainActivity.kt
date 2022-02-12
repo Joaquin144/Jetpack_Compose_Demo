@@ -52,7 +52,7 @@ class MainActivity : ComponentActivity() {
             ){
                 ImageCard(
                     painter = painter,
-                    contentDescripton = description,
+                    contentDescription = description,
                     title = title
                 )
             }
@@ -98,7 +98,7 @@ class MainActivity : ComponentActivity() {
     @Composable
     fun ImageCard(
         painter: Painter,
-        contentDescripton: String,
+        contentDescription: String,
         title: String,
         modifier: Modifier = Modifier
 ) {
@@ -110,7 +110,7 @@ class MainActivity : ComponentActivity() {
         Box(modifier = Modifier.height(200.dp)){
             Image(
                 painter = painter,
-                contentDescription = contentDescripton,
+                contentDescription = contentDescription,
                 contentScale = ContentScale.Crop
             )
             //todo : Make the Gradient
