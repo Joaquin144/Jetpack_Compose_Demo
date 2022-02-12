@@ -61,7 +61,23 @@ class MainActivity : ComponentActivity() {
             Font(R.font.lexend_thin, FontWeight.Thin)
         )
         /* Crazy Box -> If you click this then it will change its color randomly */
-
+        setContent { 
+            Column(Modifier.fillMaxSize()) {
+                val color = remember {
+                    mutableStateOf(Color.Yellow)
+                }
+                ColorBox(
+                    Modifier.fillMaxSize().weight(1f)
+                ){
+                    color.value = it
+                }
+                Box(modifier = Modifier
+                    .fillMaxSize()
+                    .background(color.value)
+                    .weight(1f)
+                )
+            }
+        }
 
         /**/
 
@@ -157,6 +173,25 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
+    fun ColorBox(
+        modifier: Modifier = Modifier,
+        updateColor: (Color) -> Unit) {//updateColor is a lambda function
+
+        Box(modifier = modifier
+            .background(Color.Red)
+            .clickable {//click karne pe kyav hoga
+                updateColor(
+                     Color(
+                        Random.nextFloat(),
+                        Random.nextFloat(),
+                        Random.nextFloat(),
+                        1f
+                    )
+                )
+            }
+        )
+    }
+    /*@Composable
     fun ColorBox(modifier: Modifier = Modifier) {//default value de rahe hain
         val color = remember {
             mutableStateOf(Color.Yellow)
@@ -173,7 +208,7 @@ class MainActivity : ComponentActivity() {
                 )
             }
         )
-    }
+    }*/
     @Composable
     fun Greeting(){
         Text(text = "Hello Ji Aunty Ji")
