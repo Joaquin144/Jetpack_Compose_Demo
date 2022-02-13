@@ -1,7 +1,11 @@
 # Jetpack_Compose_Demo
 Just few fun experiments with Jetpack Compose.<br>
 <b>Note</b> : This is not a serious app. 🙂<br>
-Tutorial (By Philipp Lackner ) : https://youtu.be/cDabx3SjuOY
+Tutorial (By Philipp Lackner ) : https://youtu.be/cDabx3SjuOY<br>
+1.) Image Card<br>
+2.) Box->Box->Box->Box...<br>
+3.) Text Styling<br>
+4.) Internal and External State Manipulation in Compose<br>
 
 <div align="center">
 <h1>Jetpack Compose</h1>
