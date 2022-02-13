@@ -12,11 +12,8 @@ import androidx.compose.foundation.gestures.DraggableState
 import androidx.compose.foundation.gestures.draggable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -27,6 +24,7 @@ import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.HorizontalAlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -42,6 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vibhu.nitjsr.jetpackcomposedemo.ui.theme.JetpackComposeDemoTheme
+import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 /*
@@ -60,7 +59,52 @@ class MainActivity : ComponentActivity() {
             Font(R.font.lexend_semibold, FontWeight.SemiBold),
             Font(R.font.lexend_thin, FontWeight.Thin)
         )
-        /* Crazy Box -> If you click this then it will change its color randomly */
+
+        /* TextField, Button & SnackBar based on Material Design */
+        setContent{
+            val scaffoldState = rememberScaffoldState()
+            val scope = rememberCoroutineScope()//Inside composable jab Coroutine use karna ho tab iska prayog karein. Khud ka coroutine create karna is very bad practice except in case of callbacks like onClickListener
+            var textFieldState by remember {
+                mutableStateOf("")
+            }
+            Scaffold(
+                modifier = Modifier.fillMaxSize(),
+                scaffoldState = scaffoldState
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center,
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = 30.dp)
+                ) {
+                    TextField(
+                        value = textFieldState,
+                        label = {//label maane hint(EditText ko yaad karo)
+                            Text("Enter your name")
+                        },
+                        onValueChange = {
+                            textFieldState = it
+                        },
+                        singleLine = true,
+                        modifier = Modifier.fillMaxWidth()
+                    )
+                    Spacer(modifier = Modifier.height(20.dp))//thodi jagah banane jke liye 2 widgets mei
+                    Button(
+                        onClick = {
+                            scope.launch {
+                                scaffoldState.snackbarHostState.showSnackbar("Welcome ${textFieldState}",null,SnackbarDuration.Short)
+                            }
+                            //scaffoldState.snackbarHostState.showSnackbar("Welcome ${textFieldState}",null,) --> Inavlid beacuse showSnackbar is a suspend function. #### I don't know why ?
+                        }) {
+                        Text(text = "Submit")
+                    }
+                }
+            }
+        }
+        /**/
+
+        /* Crazy Box -> If you click this then it will change its color randomly
         setContent { 
             Column(Modifier.fillMaxSize()) {
                 val color = remember {
@@ -79,7 +123,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        /**/
+        */
 
         /* Doing text stylings that XML couldn't do
         setContent {
@@ -181,7 +225,7 @@ class MainActivity : ComponentActivity() {
             .background(Color.Red)
             .clickable {//click karne pe kyav hoga
                 updateColor(
-                     Color(
+                    Color(
                         Random.nextFloat(),
                         Random.nextFloat(),
                         Random.nextFloat(),
