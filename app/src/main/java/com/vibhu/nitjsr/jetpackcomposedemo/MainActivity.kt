@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.os.ParcelFileDescriptor
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.DraggableState
+import androidx.compose.foundation.gestures.FlingBehavior
 import androidx.compose.foundation.gestures.draggable
+import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -60,10 +61,61 @@ class MainActivity : ComponentActivity() {
             Font(R.font.lexend_thin, FontWeight.Thin)
         )
 
-        /* TextField, Button & SnackBar based on Material Design */
+        setContent {
+            LazyColumn {
+                /* Method one : --
+                items(80) {
+                        Text(
+                            text = "Item $it",
+                            fontSize = 24.sp,
+                            textAlign = TextAlign.Center,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 24.dp)
+                        )
+                }*/
+                //Method 2:-
+                itemsIndexed(
+                    listOf("This","is","Joaquin144","Microsoft","SDE 3")
+                ){
+                    index,string->
+                    Text(
+                        text = string,
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 24.dp)
+                    )
+                }
+            }
+        }
+    }
+        /*  XML ListView == Compose Column
+        setContent{
+            val scrollState = rememberScrollState()
+            Column(
+                modifier = Modifier.verticalScroll(state= scrollState)//reverseScrolling->List by default neeche se shuru hogi
+            ){
+                for(i in 1..50){
+                    Text(
+                        text = "Item $i",
+                        fontSize = 24.sp,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 24.dp)
+                    )
+                }
+            }
+        }*/
+        /* TextField, Button & SnackBar based on Material Design along with Scaffold and Coroutine launched(this is bad practice)
         setContent{
             val scaffoldState = rememberScaffoldState()
-            val scope = rememberCoroutineScope()//Inside composable jab Coroutine use karna ho tab iska prayog karein. Khud ka coroutine create karna is very bad practice except in case of callbacks like onClickListener
+            val scope = rememberCoroutineScope()//Inside composable jab Coroutine use karna ho tab iska prayog bilkul mat karein. because Khud ka coroutine create karna is very bad practice except in case of callbacks like onClickListener
             var textFieldState by remember {
                 mutableStateOf("")
             }
@@ -93,15 +145,15 @@ class MainActivity : ComponentActivity() {
                     Button(
                         onClick = {
                             scope.launch {
-                                scaffoldState.snackbarHostState.showSnackbar("Welcome ${textFieldState}",null,SnackbarDuration.Short)
+                                scaffoldState.snackbarHostState.showSnackbar("Welcome $textFieldState",null,SnackbarDuration.Short)
                             }
                             //scaffoldState.snackbarHostState.showSnackbar("Welcome ${textFieldState}",null,) --> Inavlid beacuse showSnackbar is a suspend function. #### I don't know why ?
                         }) {
-                        Text(text = "Submit")
+                        Text(text = "Greet me!")
                     }
                 }
             }
-        }
+        }*/
         /**/
 
         /* Crazy Box -> If you click this then it will change its color randomly
@@ -214,7 +266,7 @@ class MainActivity : ComponentActivity() {
             }
         }*/
 
-    }
+
 
     @Composable
     fun ColorBox(
