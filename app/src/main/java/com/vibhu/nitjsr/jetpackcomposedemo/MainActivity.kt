@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.HorizontalAlignmentLine
+import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -40,6 +41,9 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.ConstraintSet
+import androidx.constraintlayout.compose.Dimension
 import com.vibhu.nitjsr.jetpackcomposedemo.ui.theme.JetpackComposeDemoTheme
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -61,6 +65,43 @@ class MainActivity : ComponentActivity() {
             Font(R.font.lexend_thin, FontWeight.Thin)
         )
 
+        //ConstrintLayout --> Pehle dependency add kar lena
+        //Step 1.) Define constraintSet
+        //Step 2.) create references to all the widgets you want to constraint, using createRefFor() function
+        //Step 3.) define constrains using constrain() function
+        //Step 4.) Create a Constraintlayout
+        setContent{
+            val constraints = ConstraintSet{
+                val greenBox = createRefFor("greenbox")
+                val redBox = createRefFor("redbox")
+
+                constrain(greenBox){
+                    top.linkTo(parent.top)
+                    start.linkTo(parent.start)
+                    width = Dimension.value(100.dp)
+                    height = Dimension.value(100.dp)
+                }
+                constrain(redBox){
+                    top.linkTo(parent.top)
+                    start.linkTo(greenBox.start)
+                    end.linkTo(parent.end)
+                    width = Dimension.value(100.dp)
+                    height = Dimension.value(100.dp)
+                }
+            }
+            ConstraintLayout(constraints,modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier
+                    .background(Color.Green)
+                    .layoutId("greenbox")
+                )
+                Box(modifier = Modifier
+                    .background(Color.Red)
+                    .layoutId("redbox")
+                )
+            }
+        }
+
+        /*      XML RecyclerView    <---->      Compose LazyColumn
         setContent {
             LazyColumn {
                 /* Method one : --
@@ -92,6 +133,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+         */
     }
         /*  XML ListView == Compose Column
         setContent{
