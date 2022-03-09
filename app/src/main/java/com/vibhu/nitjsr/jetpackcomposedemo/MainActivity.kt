@@ -83,7 +83,7 @@ class MainActivity : ComponentActivity() {
                 }
                 constrain(redBox){
                     top.linkTo(parent.top)
-                    start.linkTo(greenBox.start)
+                    start.linkTo(greenBox.end)
                     end.linkTo(parent.end)
                     width = Dimension.value(100.dp)
                     height = Dimension.value(100.dp)
@@ -317,7 +317,7 @@ class MainActivity : ComponentActivity() {
 
         Box(modifier = modifier
             .background(Color.Red)
-            .clickable {//click karne pe kyav hoga
+            .clickable {//click karne pe kya hoga
                 updateColor(
                     Color(
                         Random.nextFloat(),
