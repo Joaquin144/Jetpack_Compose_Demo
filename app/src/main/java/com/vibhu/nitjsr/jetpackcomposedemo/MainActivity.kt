@@ -2,6 +2,8 @@ package com.vibhu.nitjsr.jetpackcomposedemo
 
 import android.os.Bundle
 import android.os.ParcelFileDescriptor
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.*
@@ -45,6 +47,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
 import com.vibhu.nitjsr.jetpackcomposedemo.ui.theme.JetpackComposeDemoTheme
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -59,12 +62,41 @@ import kotlin.random.Random
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setContent{
+            var text by remember{
+                mutableStateOf("")
+            }
+            //Whenever text chnages then inner couroutine will be luanched
+            LaunchedEffect(key1 = text){
+                delay(3000L)
+                Toast.makeText(this@MainActivity,"Reinitiated due to change in key 3s ago",Toast.LENGTH_SHORT).show()
+            }
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(
+                    onClick = { text+= "#"},
+                    ) {
+                    Text(text = "Click Me")
+                    }
+            }
+            
+        }
+    }
+        /*              FONTS :-------
         val fontFamily = FontFamily(
             Font(R.font.lexend_regular, FontWeight.Bold),
             Font(R.font.lexend_semibold, FontWeight.SemiBold),
             Font(R.font.lexend_thin, FontWeight.Thin)
         )
+         */
 
+        /* ConstraintLayout :--------
         //ConstrintLayout --> Pehle dependency add kar lena
         //Step 1.) Define constraintSet
         //Step 2.) create references to all the widgets you want to constraint, using createRefFor() function
@@ -101,6 +133,8 @@ class MainActivity : ComponentActivity() {
             }
         }
 
+         */
+
         /*      XML RecyclerView    <---->      Compose LazyColumn
         setContent {
             LazyColumn {
@@ -134,7 +168,7 @@ class MainActivity : ComponentActivity() {
             }
         }
          */
-    }
+    //}
         /*  XML ListView == Compose Column
         setContent{
             val scrollState = rememberScrollState()
@@ -310,7 +344,7 @@ class MainActivity : ComponentActivity() {
 
 
 
-    @Composable
+    /*@Composable
     fun ColorBox(
         modifier: Modifier = Modifier,
         updateColor: (Color) -> Unit) {//updateColor is a lambda function
@@ -328,7 +362,7 @@ class MainActivity : ComponentActivity() {
                 )
             }
         )
-    }
+    }*/
     /*@Composable
     fun ColorBox(modifier: Modifier = Modifier) {//default value de rahe hain
         val color = remember {
