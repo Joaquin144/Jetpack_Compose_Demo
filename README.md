@@ -9,6 +9,7 @@ Tutorial (By Philipp Lackner ) : https://youtu.be/cDabx3SjuOY<br>
 5.) TextField,Scaffold,rememberScaffoldState,Snackbar,Button,rememberCoroutineScope(Why we should avoid launching coroutines inside Composables?),Spacer.<br> 
 6.) ListView and RecyclerView <---> Column and LazyColumn<br>
 7.) ContraintLayout in Compose :- ConstraintSet, setting references and building a CL<br>
+8.) Side Effects (A side effect is any change in state of app which escapes the scope of compose function) and Handlers<br>
 
 <div align="center">
 <h1>Jetpack Compose</h1>
